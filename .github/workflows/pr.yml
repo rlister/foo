@@ -11,9 +11,11 @@ jobs:
     - name: Say Hello
       run: |
         ruby -v
+        gem install bundler
         bundle -v
-        env | grep GITHUB
-        git rev-parse HEAD
+        cd ops
+        bundle install
+        bundle exec stax --help
         echo ${{ github.repository }}
         echo ${{ github.sha }}
         echo ${{ github.ref }}
