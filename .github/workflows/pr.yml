@@ -11,7 +11,7 @@ jobs:
     - name: Say Hello
       run: |
         ruby -v
-        gem install bundler
+        sudo gem install bundler
         bundle -v
         cd ops
         bundle install
