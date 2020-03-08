@@ -13,6 +13,8 @@ jobs:
         ruby -v
         sudo gem install bundler --no-document
         bundle -v
+        aws --version
+        aws sts get-caller-identity
         cd ops
         bundle install
         bundle exec stax build generate
