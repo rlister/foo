@@ -11,11 +11,11 @@ jobs:
     - name: Say Hello
       run: |
         ruby -v
-        sudo gem install bundler
+        sudo gem install bundler --no-rdoc --no-ri
         bundle -v
         cd ops
         bundle install
-        bundle exec stax --help
+        bundle exec stax build generate
         echo ${{ github.repository }}
         echo ${{ github.sha }}
         echo ${{ github.ref }}
