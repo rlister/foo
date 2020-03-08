@@ -10,7 +10,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Say Hello
       run: |
-        ls -l
+        ruby -v
+        bundle -v
         env | grep GITHUB
         git rev-parse HEAD
         echo ${{ github.repository }}
