@@ -12,6 +12,7 @@ jobs:
       run: |
         ls -l
         env | grep GITHUB
+        git rev-parse HEAD
         echo ${{ github.repository }}
         echo ${{ github.sha }}
         echo ${{ github.ref }}
