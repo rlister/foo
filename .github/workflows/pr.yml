@@ -1,5 +1,7 @@
 name: test
 on: push
+env:
+  FOO: "test action"
 jobs:
   hello:
     name: HelloJob
@@ -7,4 +9,4 @@ jobs:
     steps:
     - name: Say Hello
       run: |
-        echo hello world
+        echo hello $FOO
