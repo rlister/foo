@@ -11,4 +11,8 @@ jobs:
     - name: Say Hello
       run: |
         ls -l
-        env
+        env | grep GITHUB
+        echo ${{ github.repository }}
+        echo ${{ github.sha }}
+        echo ${{ github.ref }}
+        echo ${{ github.head_ref }}
