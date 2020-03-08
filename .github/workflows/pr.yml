@@ -1,7 +1,7 @@
 name: test
 on: push
 env:
-  FOO: "test action"
+  AWS_REGION: us-east-1
 jobs:
   hello:
     name: HelloJob
