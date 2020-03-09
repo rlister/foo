@@ -9,6 +9,7 @@ jobs:
     - name: stax
       env:
         AWS_REGION: us-east-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       run: |
         echo $AWS_REGION
         ruby -v
