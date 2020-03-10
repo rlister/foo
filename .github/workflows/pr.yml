@@ -15,23 +15,18 @@ jobs:
         credential_source = Environment
         EOF
     - name: stax_create
-      env:
+      env:b
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_PROFILE: github
       run: |
-        echo foo
-        cat ~/.aws/config
-        echo $AWS_REGION
-        echo $AWS_PROFILE
-        # sudo gem install bundler --no-document
-        # bundle -v
+        sudo gem install bundler --no-document
         aws --version
         aws sts get-caller-identity --profile $AWS_PROFILE
-        # cd ops
-        # bundle install
-        # bundle exec stax ls
+        cd ops
+        bundle install
+        bundle exec stax ls -A
         # bundle exec stax build generate
         # echo ${{ github.repository }}
         # echo ${{ github.sha }}
