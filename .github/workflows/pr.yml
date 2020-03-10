@@ -6,27 +6,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: aws_config
+    - name: aws_cred
       run: |
         mkdir -p ~/.aws
-        cat << EOF > ~/.aws/config
-        [profile github]
+        cat << EOF > ~/.aws/credentials
+        [default]
+        region = us-east-1
+        aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         role_arn = arn:aws:iam::404655101703:role/github
-        credential_source = Environment
+        source_profile = default
         EOF
+        chmod 0400 ~/.aws/credentials
     - name: stax_create
-      env:
-        AWS_REGION: us-east-1
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_PROFILE: github
       run: |
+        grep aws_access ~/.aws/credentials
         sudo gem install bundler --no-document
         aws --version
-        aws sts get-caller-identity --profile $AWS_PROFILE
+        aws sts get-caller-identity
         cd ops
         bundle install
         bundle exec stax ls -A
+        rm -f ~/.aws/credentials
         # bundle exec stax build generate
         # echo ${{ github.repository }}
         # echo ${{ github.sha }}
