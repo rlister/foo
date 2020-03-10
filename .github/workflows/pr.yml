@@ -21,6 +21,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_PROFILE: github
       run: |
+        echo foo
         cat ~/.aws/config
         echo $AWS_REGION
         echo $AWS_PROFILE
