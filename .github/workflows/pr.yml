@@ -8,6 +8,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: aws_config
       run: |
+        mkdir -p ~/.aws
         cat << EOF > ~/.aws/config
         [profile github]
         role_arn = arn:aws:iam::404655101703:role/hamerkop-master-roles-github-G68CEKXIJ9AR
