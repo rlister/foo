@@ -28,6 +28,7 @@ jobs:
         bundle install
         bundle exec stax build create
         rm -f ~/.aws/credentials
+        echo done
         # bundle exec stax build generate
         # echo ${{ github.repository }}
         # echo ${{ github.sha }}
