@@ -24,10 +24,9 @@ jobs:
         cat ~/.aws/config
         echo $AWS_REGION
         echo $AWS_PROFILE
-        # ruby -v
         # sudo gem install bundler --no-document
         # bundle -v
-        # aws --version
+        aws --version
         aws sts get-caller-identity --profile $AWS_PROFILE
         # cd ops
         # bundle install
