@@ -2,16 +2,24 @@ name: test
 on: push
 jobs:
   hello:
-    name: HelloJob
+    name: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: stax
+    - name: aws_config
+      run: |
+        cat << EOF > ~/.aws/config
+        [profile github]
+        role_arn = arn:aws:iam::404655101703:role/hamerkop-master-roles-github-G68CEKXIJ9AR
+        credential_source = Environment
+        EOF
+    - name: stax_create
       env:
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
+        cat ~/.aws/config
         echo $AWS_REGION
         ruby -v
         sudo gem install bundler --no-document
