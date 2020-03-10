@@ -11,7 +11,7 @@ jobs:
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/config
         [profile github]
-        role_arn = arn:aws:iam::404655101703:role/hamerkop-master-roles-github-G68CEKXIJ9AR
+        role_arn = arn:aws:iam::404655101703:role/github
         credential_source = Environment
         EOF
     - name: stax_create
@@ -23,14 +23,15 @@ jobs:
       run: |
         cat ~/.aws/config
         echo $AWS_REGION
-        ruby -v
-        sudo gem install bundler --no-document
-        bundle -v
-        aws --version
-        aws sts get-caller-identity
-        cd ops
-        bundle install
-        bundle exec stax ls
+        echo $AWS_PROFILE
+        # ruby -v
+        # sudo gem install bundler --no-document
+        # bundle -v
+        # aws --version
+        aws sts get-caller-identity --profile $AWS_PROFILE
+        # cd ops
+        # bundle install
+        # bundle exec stax ls
         # bundle exec stax build generate
         # echo ${{ github.repository }}
         # echo ${{ github.sha }}
