@@ -17,6 +17,7 @@ jobs:
     - name: stax_create
       env:
         QUEUE: https://sqs.us-east-1.amazonaws.com/404655101703/hamerkop-master-cfncreate
+        AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
@@ -26,9 +27,8 @@ jobs:
         cd ops
         bundle install
         bundle exec stax build skeleton > build.json
-        aws sqs send-message --queue-url $QUEUE --message-body file://build.json --profile github
+        aws sqs send-message --queue-url "$QUEUE" --message-body file://build.json --profile github
         rm -f build.json
-        echo done
         # bundle exec stax build generate
         # echo ${{ github.repository }}
         # echo ${{ github.sha }}
