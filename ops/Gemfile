@@ -1,6 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'stax', '>= 0.0.29'
-gem 'stax-examples'
-gem 'docile', '~> 1.2.0'
-gem 'cfer', '>= 0.6.0'
+gem 'stax', '>= 0.1.1'

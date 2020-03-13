@@ -6,28 +6,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: aws_cred
+    - name: aws_config
       run: |
         mkdir -p ~/.aws
-        cat << EOF > ~/.aws/credentials
-        [default]
-        region = us-east-1
-        aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        cat << EOF > ~/.aws/config
+        [profile github]
         role_arn = arn:aws:iam::404655101703:role/github
-        source_profile = default
+        credential_source = Environment
         EOF
-        chmod 0400 ~/.aws/credentials
     - name: stax_create
+      env:
+        QUEUE: https://sqs.us-east-1.amazonaws.com/404655101703/hamerkop-master-cfncreate
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         grep aws_access ~/.aws/credentials
         sudo gem install bundler --no-document
         aws --version
-        aws sts get-caller-identity
+        aws sts get-caller-identity --profile github
         cd ops
         bundle install
-        bundle exec stax build create
-        rm -f ~/.aws/credentials
+        bundle exec stax build skeleton > build.json
+        aws sqs send-message --queue-url $QUEUE --message-body file://build.json --profile github
+        rm -f build.json
         echo done
         # bundle exec stax build generate
         # echo ${{ github.repository }}
